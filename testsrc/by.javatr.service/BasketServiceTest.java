@@ -26,7 +26,7 @@ public class BasketServiceTest {
     }
 
     @Test
-    public void addBallToBasket() {
+    public void addBallToBasketAddingTest() {
         int expected = 3;
         int actual = basket.getBalls().size();
         Assert.assertEquals(expected, actual);
@@ -40,9 +40,9 @@ public class BasketServiceTest {
     }
 
     @Test
-    public void countBallByColor() {
+    public void countBallsByColorFilteringTest() {
         int expected = 2;
-        int actual = basketService.countBallByColor(basket, "Blue");
+        int actual = basketService.countBallsByColor(basket, "Blue");
         Assert.assertEquals(expected, actual);
     }
 }

@@ -24,7 +24,7 @@ public class BasketService {
         return weightSum;
     }
 
-    public int countBallByColor(Basket basket, String color) {
+    public int countBallsByColor(Basket basket, String color) {
         int amount = 0;
         if (basket != null) {
             for (Ball ball : basket.getBalls()) {
