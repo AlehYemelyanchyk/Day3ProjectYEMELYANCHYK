@@ -9,7 +9,11 @@ import by.javatr.model.Basket;
 public class BasketService {
 
     public void addBallToBasket(Basket basket, Ball ball) {
-        if (basket != null && ball != null) {
+        if (basket == null && ball == null) {
+            return;
+        }
+        int ballsAmount = basket.getBalls().size();
+        if (ballsAmount < basket.getBasketCapacity()) {
             basket.getBalls().add(ball);
         }
     }

@@ -11,7 +11,7 @@ public class Run {
 
     public static void main(String[] args) {
         BasketService basketService = new BasketService();
-        Basket basket = new Basket();
+        Basket basket = new Basket(5);
         Ball ball1 = new Ball("Blue", 2.5);
         Ball ball2 = new Ball("Red", 3.5);
         Ball ball3 = new Ball("Blue", 5.0);
