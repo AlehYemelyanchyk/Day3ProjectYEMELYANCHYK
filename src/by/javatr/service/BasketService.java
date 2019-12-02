@@ -2,6 +2,9 @@ package by.javatr.service;
 
 import by.javatr.model.Ball;
 import by.javatr.model.Basket;
+import by.javatr.model.exception.FullBasketException;
+import by.javatr.model.validation.BasketValidation;
+import by.javatr.service.validation.BasketServiceValidation;
 
 import java.util.List;
 
@@ -10,21 +13,21 @@ import java.util.List;
  */
 public class BasketService {
 
-    public boolean addBallToBasket(Basket basket, Ball ball) {
+    public boolean addBallToBasket(Basket basket, Ball ball)
+            throws NullPointerException, FullBasketException {
         if (basket == null || ball == null) {
-            return false;
+            throw new NullPointerException("Basket or ball not found.");
         }
-        int ballsAmount = basket.getBalls().size();
-        if (ballsAmount < basket.getBasketCapacity()) {
+        if (!BasketServiceValidation.isFull(basket)) {
             basket.getBalls().add(ball);
             return true;
         }
-        return false;
+        throw new FullBasketException("The basket is full.");
     }
 
-    public boolean removeBallFromBasket(Basket basket, Ball ball) {
+    public boolean removeBallFromBasket(Basket basket, Ball ball) throws NullPointerException {
         if (basket == null) {
-            return false;
+            throw new NullPointerException("Basket not found.");
         }
         return basket.getBalls().remove(ball);
     }

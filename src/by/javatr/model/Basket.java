@@ -12,7 +12,7 @@ public class Basket {
     private final int basketCapacity;
     private List<Ball> balls;
 
-    public Basket() {
+    protected Basket() {
         basketCapacity = 10;
         this.balls = new ArrayList<>();
     }

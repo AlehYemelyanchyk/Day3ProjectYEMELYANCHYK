@@ -2,6 +2,7 @@ package by.javatr.service;
 
 import by.javatr.model.Ball;
 import by.javatr.model.Basket;
+import by.javatr.model.exception.FullBasketException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,60 +38,39 @@ public class BasketServiceTest {
         Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void addBallToNullBasketTest() {
-        Assert.assertFalse(basketService.addBallToBasket(null, ball1));
+        basketService.addBallToBasket(null, ball1);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void addNullToBasketTest() {
-        Assert.assertFalse(basketService.addBallToBasket(basket, null));
+        basketService.addBallToBasket(basket, null);
     }
 
-    @Test
+    @Test(expected = FullBasketException.class)
     public void addBallToBasketMoreThanMaxCapacityTest() {
-        int expected = 3;
         Ball ball = new Ball("Green", 5.0);
         basketService.addBallToBasket(basket, ball);
-        List<Ball> balls = basket.getBalls();
-        Assert.assertNotNull(balls);
-        int actual = balls.size();
-        Assert.assertEquals(expected, actual);
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void removeBallFromNullBasketTest() {
-        Assert.assertFalse(basketService.removeBallFromBasket(null, ball1));
+        basketService.removeBallFromBasket(null, ball1);
     }
-
-//    @Test
-//    public void removeBallFromBasketTest() {
-//        int expected = 2;
-//        basketService.removeBallFromBasket(basket, ball1);
-//        List<Ball> result = basket.getBalls();
-//        Assert.assertNotNull(result);
-//        int actual = result.size();
-//        Assert.assertEquals(expected, actual);
-//    }
 
     @Test
     public void removeBallFromBasketTest() {
         Assert.assertTrue(basketService.removeBallFromBasket(basket, ball1));
     }
 
-//    @Test
-//    public void removeNullFromBasketTest() {
-//        int expected = 3;
-//        basketService.removeBallFromBasket(basket, null);
-//        List<Ball> result = basket.getBalls();
-//        Assert.assertNotNull(result);
-//        int actual = result.size();
-//        Assert.assertEquals(expected, actual);
-//    }
+    @Test(expected = NullPointerException.class)
+    public void removeFromNullBasketTest() {
+        basketService.removeBallFromBasket(null, ball2);
+    }
 
     @Test
-    public void removeFromBasketNullArgumentTest() {
-        Assert.assertFalse(basketService.removeBallFromBasket(null, ball2));
+    public void removeNullFromBasketTest() {
         Assert.assertFalse(basketService.removeBallFromBasket(basket, null));
     }
 

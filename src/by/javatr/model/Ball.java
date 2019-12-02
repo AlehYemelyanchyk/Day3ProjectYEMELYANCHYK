@@ -11,7 +11,7 @@ public class Ball {
     private String color;
     private double weight;
 
-    public Ball() {
+    protected Ball() {
     }
 
     public Ball(String color, double weight) {
