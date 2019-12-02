@@ -31,5 +31,8 @@ public class Run {
 
         System.out.println("There are " + basketService.countBallsByColor(basket, color)
                 + " " + color + " balls in the basket");
+
+        ball1.setColor("");
+
     }
 }
