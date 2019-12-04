@@ -15,7 +15,7 @@ import java.util.List;
 public class BasketServiceTest {
 
     private static final double DELTA = 0.0001;
-    private static final int MAX_CAPACITY = 3;
+    private static final int MAX_CAPACITY = 4;
     private BasketService basketService = new BasketService();
     private Basket basket = new Basket(MAX_CAPACITY);
     private Ball ball1 = new Ball("Blue", 2.5);
@@ -24,26 +24,27 @@ public class BasketServiceTest {
 
     @Before
     public void addThreeBallsToBasket() {
-        basketService.addBallToBasket(basket, ball1);
-        basketService.addBallToBasket(basket, ball2);
-        basketService.addBallToBasket(basket, ball3);
+        basket.getBalls().add(ball1);
+        basket.getBalls().add(ball2);
+        basket.getBalls().add(ball3);
     }
 
     @Test
     public void addBallToBasketAddingTest() {
-        int expected = 3;
+        int expected = 4;
+        basketService.addBallToBasket(basket, ball2);
         List<Ball> result = basket.getBalls();
         Assert.assertNotNull(result);
         int actual = basket.getBalls().size();
         Assert.assertEquals(expected, actual);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addBallToNullBasketTest() {
         basketService.addBallToBasket(null, ball1);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void addNullToBasketTest() {
         basketService.addBallToBasket(basket, null);
     }
@@ -52,19 +53,26 @@ public class BasketServiceTest {
     public void addBallToBasketMoreThanMaxCapacityTest() {
         Ball ball = new Ball("Green", 5.0);
         basketService.addBallToBasket(basket, ball);
+        basketService.addBallToBasket(basket, ball);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeBallFromNullBasketTest() {
         basketService.removeBallFromBasket(null, ball1);
     }
 
     @Test
     public void removeBallFromBasketTest() {
+        int expected = 2;
         Assert.assertTrue(basketService.removeBallFromBasket(basket, ball1));
+        List<Ball> result = basket.getBalls();
+        Assert.assertNotNull(result);
+        int actual = result.size();
+        Assert.assertEquals(expected, actual);
+        Assert.assertFalse(result.contains(ball1));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void removeFromNullBasketTest() {
         basketService.removeBallFromBasket(null, ball2);
     }
@@ -80,6 +88,10 @@ public class BasketServiceTest {
         Ball expected = ball2;
         Ball actual = basketService.replaceBallInBasket(basket, ball2, newBall);
         Assert.assertEquals(expected, actual);
+        List<Ball> result = basket.getBalls();
+        Assert.assertNotNull(result);
+        Assert.assertFalse(result.contains(ball2));
+        Assert.assertTrue(result.contains(newBall));
     }
 
     @Test

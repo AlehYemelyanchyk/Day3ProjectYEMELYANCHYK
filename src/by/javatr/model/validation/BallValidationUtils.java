@@ -3,9 +3,9 @@ package by.javatr.model.validation;
 /**
  * @author Aleh Yemelyanchyk on 12/1/2019.
  */
-public final class BallValidation {
+public final class BallValidationUtils {
 
-    private BallValidation() {
+    private BallValidationUtils() {
     }
 
     public static boolean isColorValid(String color) {

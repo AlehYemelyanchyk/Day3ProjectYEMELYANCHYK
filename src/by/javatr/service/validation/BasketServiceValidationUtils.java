@@ -5,9 +5,9 @@ import by.javatr.model.Basket;
 /**
  * @author Aleh Yemelyanchyk on 12/2/2019.
  */
-public final class BasketServiceValidation {
+public final class BasketServiceValidationUtils {
 
-    private BasketServiceValidation() {
+    private BasketServiceValidationUtils() {
     }
 
     public static boolean isFull(Basket basket) {

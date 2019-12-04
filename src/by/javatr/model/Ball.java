@@ -2,7 +2,7 @@ package by.javatr.model;
 
 import by.javatr.model.exception.InvalidColorException;
 import by.javatr.model.exception.InvalidWeightException;
-import by.javatr.model.validation.BallValidation;
+import by.javatr.model.validation.BallValidationUtils;
 
 /**
  * @author Aleh Yemelyanchyk on 11/20/2019.
@@ -15,8 +15,8 @@ public class Ball {
     }
 
     public Ball(String color, double weight) {
-        this.color = color;
-        this.weight = weight;
+        setColor(color);
+        setWeight(weight);
     }
 
     public String getColor() {
@@ -24,8 +24,8 @@ public class Ball {
     }
 
     public void setColor(String color) throws InvalidColorException {
-        if (!BallValidation.isColorValid(color)) {
-            throw new InvalidColorException("The color name is invalid. It may be weather empty or not assigned.");
+        if (!BallValidationUtils.isColorValid(color)) {
+            throw new InvalidColorException("The color name is invalid. It should not be empty.");
         }
         this.color = color;
     }
@@ -35,7 +35,7 @@ public class Ball {
     }
 
     public void setWeight(double weight) throws InvalidWeightException {
-        if (!BallValidation.isWeightValid(weight)) {
+        if (!BallValidationUtils.isWeightValid(weight)) {
             throw new InvalidWeightException("A ball weight should be more than 0 and less than 10.");
         }
         this.weight = weight;
@@ -53,7 +53,7 @@ public class Ball {
 
         if (Double.compare(weight, ball.getWeight()) == 0) {
             if (color != null) {
-                return color.equals(ball.getColor());
+                return color.equalsIgnoreCase(ball.getColor());
             } else return ball.getColor() == null;
         }
         return false;
@@ -61,7 +61,7 @@ public class Ball {
 
     @Override
     public int hashCode() {
-        return 31 * (color == null ? 0 : color.hashCode()) * (int) weight;
+        return 31 * (int) ((color == null ? 0 : color.hashCode()) * weight);
     }
 
 

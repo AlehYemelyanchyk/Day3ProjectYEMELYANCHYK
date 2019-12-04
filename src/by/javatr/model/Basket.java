@@ -1,6 +1,6 @@
 package by.javatr.model;
 
-import by.javatr.model.validation.BasketValidation;
+import by.javatr.model.validation.BasketValidationUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,16 +9,16 @@ import java.util.List;
  * @author Aleh Yemelyanchyk on 11/20/2019.
  */
 public class Basket {
-    private final int basketCapacity;
+    private int basketCapacity;
     private List<Ball> balls;
 
-    protected Basket() {
+    public Basket() {
         basketCapacity = 10;
         this.balls = new ArrayList<>();
     }
 
     public Basket(int basketCapacity) {
-        this.basketCapacity = basketCapacity;
+        setBasketCapacity(basketCapacity);
         this.balls = new ArrayList<>(basketCapacity);
     }
 
@@ -26,13 +26,20 @@ public class Basket {
         return basketCapacity;
     }
 
+    public void setBasketCapacity(int basketCapacity) {
+        if (!BasketValidationUtils.isCapacityValid(basketCapacity)) {
+            throw new IllegalArgumentException("A basket's capacity should be more than 0.");
+        }
+        this.basketCapacity = basketCapacity;
+    }
+
     public List<Ball> getBalls() {
         return balls;
     }
 
-    public void setBalls(List<Ball> balls) throws NullPointerException {
-        if (!BasketValidation.isBallsValid(balls)) {
-            throw new NullPointerException("Balls list haven't been initialized.");
+    public void setBalls(List<Ball> balls) throws IllegalArgumentException {
+        if (!BasketValidationUtils.isBallsValid(balls)) {
+            throw new IllegalArgumentException("Balls list haven't been initialized.");
         }
         this.balls = balls;
     }

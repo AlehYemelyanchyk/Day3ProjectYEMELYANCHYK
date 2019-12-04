@@ -3,8 +3,7 @@ package by.javatr.service;
 import by.javatr.model.Ball;
 import by.javatr.model.Basket;
 import by.javatr.model.exception.FullBasketException;
-import by.javatr.model.validation.BasketValidation;
-import by.javatr.service.validation.BasketServiceValidation;
+import by.javatr.service.validation.BasketServiceValidationUtils;
 
 import java.util.List;
 
@@ -14,20 +13,19 @@ import java.util.List;
 public class BasketService {
 
     public boolean addBallToBasket(Basket basket, Ball ball)
-            throws NullPointerException, FullBasketException {
+            throws IllegalArgumentException, FullBasketException {
         if (basket == null || ball == null) {
-            throw new NullPointerException("Basket or ball not found.");
+            throw new IllegalArgumentException("Basket or ball not found.");
         }
-        if (!BasketServiceValidation.isFull(basket)) {
-            basket.getBalls().add(ball);
-            return true;
+        if (BasketServiceValidationUtils.isFull(basket)) {
+            throw new FullBasketException("The basket is full.");
         }
-        throw new FullBasketException("The basket is full.");
+        return basket.getBalls().add(ball);
     }
 
-    public boolean removeBallFromBasket(Basket basket, Ball ball) throws NullPointerException {
+    public boolean removeBallFromBasket(Basket basket, Ball ball) throws IllegalArgumentException {
         if (basket == null) {
-            throw new NullPointerException("Basket not found.");
+            throw new IllegalArgumentException("Basket not found.");
         }
         return basket.getBalls().remove(ball);
     }
@@ -39,10 +37,10 @@ public class BasketService {
 
         List<Ball> balls = basket.getBalls();
         int index = findBallInBasket(balls, ballOld);
-        if (index >= 0) {
-            return balls.set(index, ballNew);
+        if (index == -1) {
+            return null;
         }
-        return null;
+        return balls.set(index, ballNew);
     }
 
     public double countBasketWeight(Basket basket) {
