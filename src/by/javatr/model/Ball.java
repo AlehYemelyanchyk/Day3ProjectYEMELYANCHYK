@@ -52,9 +52,7 @@ public class Ball {
         Ball ball = (Ball) object;
 
         if (Double.compare(weight, ball.getWeight()) == 0) {
-            if (color != null) {
-                return color.equalsIgnoreCase(ball.getColor());
-            } else return ball.getColor() == null;
+            return color.equalsIgnoreCase(ball.getColor());
         }
         return false;
     }

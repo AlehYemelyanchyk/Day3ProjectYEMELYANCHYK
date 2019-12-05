@@ -2,12 +2,18 @@ package by.javatr.model;
 
 import by.javatr.model.exception.InvalidColorException;
 import by.javatr.model.exception.InvalidWeightException;
+import by.javatr.model.validation.BallValidationUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * @author Aleh Yemelyanchyk on 12/1/2019.
  */
+
+@RunWith(MockitoJUnitRunner.class)
 public class BallTest {
 
     private Ball ball = new Ball("Blue", 2.5);
@@ -47,7 +53,14 @@ public class BallTest {
     public void equalsBothNullColorsTest() {
         Ball ball1 = new Ball(null, 2.5);
         Ball ball2 = new Ball(null, 2.5);
-        Assert.assertEquals(ball1, ball2);
+        Assert.assertEquals(ball1,ball2);
+    }
+
+    @Test (expected = InvalidColorException.class)
+    public void equalsBothEmptyColorsTest() {
+        Ball ball1 = new Ball("", 2.5);
+        Ball ball2 = new Ball("", 2.5);
+        Assert.assertEquals(ball1,ball2);
     }
 
     @Test (expected = InvalidColorException.class)
