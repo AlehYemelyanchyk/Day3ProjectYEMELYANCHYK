@@ -51,8 +51,8 @@ public class Ball {
         }
         Ball ball = (Ball) object;
 
-        if (Double.compare(weight, ball.getWeight()) == 0) {
-            return color.equalsIgnoreCase(ball.getColor());
+        if (Double.compare(this.getWeight(), ball.getWeight()) == 0) {
+            return this.getColor().equalsIgnoreCase(ball.getColor());
         }
         return false;
     }

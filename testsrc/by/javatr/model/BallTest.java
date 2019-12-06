@@ -2,18 +2,13 @@ package by.javatr.model;
 
 import by.javatr.model.exception.InvalidColorException;
 import by.javatr.model.exception.InvalidWeightException;
-import by.javatr.model.validation.BallValidationUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * @author Aleh Yemelyanchyk on 12/1/2019.
  */
 
-@RunWith(MockitoJUnitRunner.class)
 public class BallTest {
 
     private Ball ball = new Ball("Blue", 2.5);
@@ -49,32 +44,32 @@ public class BallTest {
         Assert.assertEquals(ball, ballNew);
     }
 
-    @Test (expected = InvalidColorException.class)
+    @Test(expected = InvalidColorException.class)
     public void equalsBothNullColorsTest() {
         Ball ball1 = new Ball(null, 2.5);
         Ball ball2 = new Ball(null, 2.5);
-        Assert.assertEquals(ball1,ball2);
+        ball1.equals(ball2);
     }
 
-    @Test (expected = InvalidColorException.class)
+    @Test(expected = InvalidColorException.class)
     public void equalsBothEmptyColorsTest() {
         Ball ball1 = new Ball("", 2.5);
         Ball ball2 = new Ball("", 2.5);
-        Assert.assertEquals(ball1,ball2);
+        ball1.equals(ball2);
     }
 
-    @Test (expected = InvalidColorException.class)
+    @Test(expected = InvalidColorException.class)
     public void equalsCompareToNullColorTest() {
         Ball ball1 = new Ball("Blue", 2.5);
         Ball ball2 = new Ball(null, 2.5);
-        Assert.assertEquals(ball1, ball2);
+        ball1.equals(ball2);
     }
 
-    @Test (expected = InvalidColorException.class)
+    @Test(expected = InvalidColorException.class)
     public void equalsNullColorTest() {
         Ball ball1 = new Ball(null, 2.5);
         Ball ball2 = new Ball("Blue", 2.5);
-        Assert.assertEquals(ball1, ball2);
+        ball1.equals(ball2);
     }
 
     @Test
@@ -95,24 +90,24 @@ public class BallTest {
     @Test
     public void hashCodeSameObjectsTest() {
         Ball newBall = new Ball("Blue", 2.5);
-        Assert.assertEquals(ball.hashCode(),newBall.hashCode());
+        Assert.assertEquals(ball.hashCode(), newBall.hashCode());
     }
 
     @Test
     public void hashCodeDifferentColorObjectsTest() {
         Ball newBall = new Ball("Red", 2.5);
-        Assert.assertNotEquals(ball.hashCode(),newBall.hashCode());
+        Assert.assertNotEquals(ball.hashCode(), newBall.hashCode());
     }
 
     @Test
     public void hashCodeDifferentWeightObjectsTest() {
         Ball newBall = new Ball("Blue", 2.45);
-        Assert.assertNotEquals(ball.hashCode(),newBall.hashCode());
+        Assert.assertNotEquals(ball.hashCode(), newBall.hashCode());
     }
 
-    @Test (expected = InvalidColorException.class)
+    @Test(expected = InvalidColorException.class)
     public void hashCodeNullColorObjectsTest() {
         Ball newBall = new Ball(null, 2.5);
-        Assert.assertNotEquals(ball.hashCode(),newBall.hashCode());
+        Assert.assertNotEquals(ball.hashCode(), newBall.hashCode());
     }
 }
